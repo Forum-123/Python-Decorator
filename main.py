@@ -1,16 +1,41 @@
-# This is a sample Python script.
+import os.path
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+directory = "C:\\tmp\\"
+filename = "decorator_logs.txt"
+filepath = os.path.join(directory, filename)
+
+# Directory is created if it doesn't exist already
+if not os.path.isdir(directory):
+    os.mkdir(directory)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Declaring the decorator function
+def log_message(function):
+    """Takes a function and writes the function's return value in decorator_logs.txt on a new line """
+
+    def write_function(*args, **kwargs):
+        result = function(*args, **kwargs)
+        file = open(filepath, "a")
+        file.write(result + "\n")
+        file.close()
+
+        # Confirmation message is written to console
+        print("Content has successfully been written to the /tmp/decorator_logs.txt file")
+
+    return write_function
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+# Decorator function being used with example functions
+@log_message
+def hello():
+    return "Hello world"
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+@log_message
+def message(msg=""):
+    return f"Message: {msg}"
+
+
+# Function calls
+hello()
+message(msg="This is a test message")
