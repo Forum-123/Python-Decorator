@@ -6,4 +6,4 @@ A Python decorator that takes whatever the decorated function returns, and write
 
 For this problem, it is assumed the decorated functions always return a string.
 
-The decorator is called log_message and writes to the file /tmp/decorator_logs.txt.
+The decorator is called log_message and writes to the file C:/tmp/decorator_logs.txt.
